@@ -172,7 +172,7 @@ export default function PantryComponent() {
                     <div key = {index} className="flex items-center justify-between p-4 bg-white border border-blue-300 rounded-lg shadow-sm">
                     <div>
                       <h3 className="text-blue-600 font-semibold text-lg">{ingredient.ingredientName}</h3>
-                      {ingredient.quantity != 0 && <p className="text-sm text-gray-600">Quantity: {ingredient.quantity}</p>}
+                      {ingredient.quantity != 0 && <p className="text-sm text-gray-600">Quantity: {ingredient.quantity} {ingredient.units == "default" ? "" : ingredient.units}</p>}
                       {ingredient.expDate && <p className="text-sm text-gray-600">Expires: {ingredient.expDate}</p>}
                     </div>
                     <button
