@@ -16,14 +16,14 @@ export default function PantryComponent() {
 
     useEffect(() => {
         const fetchData = async () => {
-            if (!ingredientsLoaded) {
+            if (!ingredientsLoaded && session?.user?.email) {
                 await fetchIngredients();
                 setIngredientsLoaded(true);
             }
         };
     
-        fetchData(); // Call the async function inside useEffect
-    }, [ingredientsLoaded]);
+        if (session !== undefined) fetchData(); 
+    }, [ingredientsLoaded, session]);
 
     const fetchIngredients = async () => {
         setIsLoadingPantry(true);

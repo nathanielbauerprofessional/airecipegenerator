@@ -14,14 +14,14 @@ export default function SettingsComponent() {
 
     useEffect(() => {
         const fetchData = async () => {
-            if (!allergiesLoaded) {
+            if (!allergiesLoaded && session?.user?.email) {
                 await fetchAllergies();
                 setAllergiesLoaded(true);
             }
         };
     
-        fetchData(); // Call the async function inside useEffect
-    }, [allergiesLoaded]);
+        if (session !== undefined) fetchData(); 
+    }, [allergiesLoaded, session]);
 
     const fetchAllergies = async () => {
         setIsLoadingAllergies(true);
