@@ -15,7 +15,7 @@ export async function handler(req, res) {
           quantityIngredientsList.push(`${(ingredient.quantity != 0 ? ingredient.quantity : "")} ${(ingredient.quantity != 0 ? ingredient.units: "").trim()} ${ingredient.ingredientName}`);
         })
         const ingredientsSend = quantityIngredientsList.join(", ");
-        const prompt = `Create a recipe for a ${cuisine == "any" ? "" : cuisine} ${dietary == "any" ? "" : dietary} ${meal} using these ingredients: ${ingredientsSend}. ${allergies.length > 0 ? `My allergies are ${allergies.join(", ")}.`: ""} The difficulty of the recipe should be ${level} level. ${quick == "yes" ? "The entire time to make the recipe should be less than 30 minutes." : ""} The exact amounts of the ingredients do not have to be exact, just preferrably not more than the possessed quantity. If any ingredient doesn't make sense as a food item, return an empty recipe JSON. Format the recipe as JSON with the following structure:
+        const prompt = `Create a recipe for a ${cuisine == "Any" ? "" : cuisine} ${dietary == "None" ? "" : dietary} ${meal} using these ingredients: ${ingredientsSend}. ${allergies.length > 0 ? `My allergies are ${allergies.join(", ")}.`: ""} The difficulty of the recipe should be ${level} level. ${quick == "Yes" ? "The entire time to make the recipe should be less than 30 minutes." : ""} The exact amounts of the ingredients do not have to be exact, just preferrably not more than the possessed quantity. If any ingredient doesn't make sense as a food item, return an empty recipe JSON. Format the recipe as JSON with the following structure:
 {
   "title": "Dish name",
   "ingredients": [

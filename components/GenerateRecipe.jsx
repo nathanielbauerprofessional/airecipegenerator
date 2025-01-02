@@ -229,7 +229,7 @@ export default function GenerateRecipeComponent() {
               />
               <h5 className = "text-base">Do you have any dietary preferences or restrictions?</h5>
               <OblongSelect
-                options={["Vegan", "Vegetarian", "Low Carb", "High Protein"]}
+                options={["None", "Vegan", "Vegetarian", "Low Carb", "High Protein"]}
                 onChange={(value) => setDietaryInput(value)}
                 prevSelected = {dietaryInput != "" ? dietaryInput : null}
               />
