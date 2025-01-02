@@ -77,3 +77,4 @@ Allergens can be added and stored, ensuring recipes exclude harmful ingredients.
 Contact
 
 For inquiries, reach out via GitHub or email at nathanielbauerprofessional@gmail.com.
+
