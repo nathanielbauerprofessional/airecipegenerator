@@ -1,36 +1,79 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+AI Recipe Generator
 
-## Getting Started
+An intelligent and interactive application that makes cooking easier and more personalized. The AI Recipe Generator helps you generate recipes based on your preferences, manage your pantry, and maintain dietary restrictions or allergens effortlessly. Built with cutting-edge technologies, it offers a seamless user experience and advanced functionality.
 
-First, run the development server:
+Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+1. Recipe Generator
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Customizable Preferences: Enter your cuisine preference, dietary restrictions, and other preferences to generate tailored recipes.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+Interactive Inputs: The app asks for specific details to refine the recipes.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+AI-Powered Suggestions: Recipes are generated using OpenAI's GPT model for variety and creativity.
 
-## Learn More
+2. Pantry Manager
 
-To learn more about Next.js, take a look at the following resources:
+Ingredient Storage: Add ingredients to your virtual pantry for easy tracking.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Load Anytime: Retrieve your stored ingredients to help decide what to cook.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Simplified Cooking: Generates recipes based on your pantry items, minimizing waste.
 
-## Deploy on Vercel
+3. How It Works
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+A dedicated page explains the app’s functionality and technology stack in detail.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Offers transparency about how recipes are generated and how data is processed.
+
+4. Settings Page
+
+User Information: Displays user details like email address.
+
+Allergy Management: Add and store allergens to ensure generated recipes are safe for consumption.
+
+Sign Out: Easily log out of your account.
+
+Tech Stack
+
+Frontend:
+
+React.js: Dynamic and responsive UI components.
+
+Next.js: Authentication, user management, and server-side rendering.
+
+Tailwind CSS: Modern and clean styling framework.
+
+Backend:
+
+Node.js: Backend logic and API routes.
+
+MongoDB: Database storage for user data, pantry items, and allergens.
+
+How It Works
+
+User Authentication:
+
+Secure login and registration using Next.js with authentication powered by NextAuth.js.
+
+Recipe Generation:
+
+User inputs preferences such as cuisine, dietary restrictions, and available pantry items.
+
+The app leverages OpenAI to craft unique and creative recipes tailored to user preferences.
+
+Pantry Management:
+
+Store ingredients in the app’s database (MongoDB) and retrieve them later.
+
+Recipes can be generated based on available ingredients to minimize waste.
+
+Settings Page:
+
+User email is displayed for identification.
+
+Allergens can be added and stored, ensuring recipes exclude harmful ingredients. 
+
+Contact
+
+For inquiries, reach out via GitHub or email at nathanielbauerprofessional@gmail.com.
