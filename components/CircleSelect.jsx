@@ -9,11 +9,11 @@ const CircleSelect = ({ options, onChange, prevSelected }) => {
   };
 
   return (
-    <div className="flex justify-center items-center gap-6 my-6">
+    <div className="flex flex-wrap justify-center gap-4 my-6 w-full">
       {options.map((option, index) => (
         <div
           key={index}
-          className="flex flex-col items-center space-y-2"
+          className="flex flex-col items-center justify-center min-w-[120px] w-28 sm:w-32"
           onClick={() => handleSelect(option)}
         >
           <div

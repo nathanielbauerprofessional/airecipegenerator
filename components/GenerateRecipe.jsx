@@ -162,179 +162,213 @@ export default function GenerateRecipeComponent() {
     };
 
     return (
-        <div className="w-full h-screen flex flex-col items-center font-quicksand">
-          <h1 className="text-7xl font-semibold bg-gradient-to-r from-blue-200 via-blue-500 to-blue-800 bg-clip-text text-transparent my-8">
-              AI Recipe Generator
+        <div className="w-full h-screen flex flex-col items-center font-quicksand text-center">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold bg-gradient-to-r from-blue-200 via-blue-500 to-blue-800 bg-clip-text text-transparent my-4 sm:my-6 lg:my-8">
+            AI Recipe Generator
           </h1>
-          <div className = "flex flex-row gap-4 justify-center py-4">
-            {active == "recipeinfo" ? (<div className = "bg-blue-500 border-blue-700 border-2 p-2 text-white rounded-full text-sm">
-              <h3>
-                Recipe Information
-              </h3>
-            </div>) : (<div className = "bg-blue-200 p-2 text-blue-600 rounded-full text-sm">
-              <h3>
-                Recipe Information
-              </h3>
-            </div>)}
-            {active == "addingredients" ? (<div className = "bg-blue-500 border-blue-700 border-2 p-2 text-white rounded-full text-sm">
-              <h3>
-                Ingredients
-              </h3>
-            </div>) : (<div className = "bg-blue-200 p-2 text-blue-600 rounded-full text-sm">
-              <h3>
-                Ingredients
-              </h3>
-            </div>)}
-            {active == "recipegeneration" ? (<div className = "bg-blue-500 border-blue-700 border-2 p-2 text-white rounded-full text-sm">
-              <h3>
-                Generated Recipe
-              </h3>
-            </div>) : (<div className = "bg-blue-200 p-2 text-blue-600 rounded-full text-sm">
-              <h3>
-                Generated Recipe
-              </h3>
-            </div>)}
+          <div className="flex flex-wrap gap-4 justify-center py-4">
+            {active === "recipeinfo" ? (
+              <div className="bg-blue-500 border-blue-700 border-2 p-2 sm:p-4 text-white rounded-full text-xs sm:text-sm">
+                <h3 className="text-center">Recipe Information</h3>
+              </div>
+            ) : (
+              <div className="bg-blue-200 p-2 sm:p-4 text-blue-600 rounded-full text-xs sm:text-sm">
+                <h3 className="text-center">Recipe Information</h3>
+              </div>
+            )}
+            {active === "addingredients" ? (
+              <div className="bg-blue-500 border-blue-700 border-2 p-2 sm:p-4 text-white rounded-full text-xs sm:text-sm">
+                <h3 className="text-center">Ingredients</h3>
+              </div>
+            ) : (
+              <div className="bg-blue-200 p-2 sm:p-4 text-blue-600 rounded-full text-xs sm:text-sm">
+                <h3 className="text-center">Ingredients</h3>
+              </div>
+            )}
+            {active === "recipegeneration" ? (
+              <div className="bg-blue-500 border-blue-700 border-2 p-2 sm:p-4 text-white rounded-full text-xs sm:text-sm">
+                <h3 className="text-center">Generated Recipe</h3>
+              </div>
+            ) : (
+              <div className="bg-blue-200 p-2 sm:p-4 text-blue-600 rounded-full text-xs sm:text-sm">
+                <h3 className="text-center">Generated Recipe</h3>
+              </div>
+            )}
           </div>
-          <div className = "border-2 border-gray-300 p-6 max-w-[1000px] min-w-[700px]">
+
+
+          <div className = "border-2 border-gray-300 p-6 max-w-[1000px]">
           {active == "recipeinfo" && 
-          <div className = "flex flex-col items-center justify-center">
-          <form className = "text-center"> 
-              <h5 className = "text-base">What type of meal are you looking for?</h5>
-              <CircleSelect
-                options={[
-                  { value: "breakfast", icon: MdOutlineBreakfastDining, label: "Breakfast" },
-                  { value: "lunch", icon: MdOutlineLunchDining, label: "Lunch" },
-                  { value: "dinner", icon: MdOutlineDinnerDining, label: "Dinner" },
-                  { value: "dessert", icon: LuDessert, label: "Dessert" },
-                  { value: "snack", icon: GiChipsBag, label: "Snack" },
-                ]}
-                onChange={(value) => setMealInput(value)}
-                prevSelected = {mealInput != "" ? mealInput : null}
-              />
-              <h5 className = "text-base">What cuisine are you in the mood for?</h5>
-              <OblongSelect
-                options={["Any", "American", "Mexican", "Italian", "French", "Chinese", "Indian"]}
-                onChange={(value) => setCuisineInput(value)}
-                prevSelected = {cuisineInput != "" ? cuisineInput : null}
-              />
-              <h5 className = "text-base">What is your cooking skill level?</h5>
-              <CircleSelect
-                options={[
-                  { value: "beginner", icon: RiNumber1, label: "Beginner" },
-                  { value: "intermediate", icon: RiNumber2, label: "Intermediate" },
-                  { value: "expert", icon: RiNumber3, label: "Expert" }
-                ]}
-                onChange={(value) => setLevelInput(value)}
-                prevSelected = {levelInput != "" ? levelInput : null}
-              />
-              <h5 className = "text-base">Do you have any dietary preferences or restrictions?</h5>
-              <OblongSelect
-                options={["None", "Vegan", "Vegetarian", "Low Carb", "High Protein"]}
-                onChange={(value) => setDietaryInput(value)}
-                prevSelected = {dietaryInput != "" ? dietaryInput : null}
-              />
-              <h5 className = "text-base">Do you need the recipe to be ready in under 30 minutes?</h5>
-              <CircleSelect
-                options={[
-                  { value: "yes", icon: FaCheck, label: "Yes" },
-                  { value: "no", icon: FaX, label: "No" },
-                ]}
-                onChange={(value) => setQuickInput(value)}
-                prevSelected = {quickInput != "" ? quickInput : null}
-              />
-            </form>
-            <button className ="self-end p-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500" onClick = {() => setActive("addingredients")}>Continue</button>
-            </div>
-            }
-            {active == "addingredients" && 
-            <div className = "flex flex-col">
-            <button className = "self-end p-2 w-fit bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500" onClick = {fetchIngredients}>Get Ingredients From Pantry</button>
-            <form onSubmit={handleAdd} className="space-y-4">
-              {/* Ingredient Input */}
-              <div className="flex flex-col gap-1">
-                <label htmlFor="ingredientInput" className="font-semibold text-gray-700">
-                  Ingredient
-                </label>
-                <input
-                  id="ingredientInput"
-                  type="text"
-                  placeholder="Enter an ingredient"
-                  value={ingredientInput}
-                  onChange={(e) => setIngredientInput(e.target.value)}
-                  className="p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-              </div>
+            <div className="flex flex-col items-center justify-center px-4">
+              <form className="text-center w-full max-w-lg"> 
+                <h5 className="text-base mb-2 text-wrap">What type of meal are you looking for?</h5>
+                <div className="w-full">
+                  <CircleSelect
+                    options={[
+                      { value: "breakfast", icon: MdOutlineBreakfastDining, label: "Breakfast" },
+                      { value: "lunch", icon: MdOutlineLunchDining, label: "Lunch" },
+                      { value: "dinner", icon: MdOutlineDinnerDining, label: "Dinner" },
+                      { value: "dessert", icon: LuDessert, label: "Dessert" },
+                      { value: "snack", icon: GiChipsBag, label: "Snack" },
+                    ]}
+                    onChange={(value) => setMealInput(value)}
+                    prevSelected={mealInput !== "" ? mealInput : null}
+                  />
+                </div>
+                
+                <h5 className="text-base mb-2 mt-4 text-wrap">What cuisine are you in the mood for?</h5>
+                <div className="w-full">
+                  <OblongSelect
+                    options={["Any", "American", "Mexican", "Italian", "French", "Chinese", "Indian"]}
+                    onChange={(value) => setCuisineInput(value)}
+                    prevSelected={cuisineInput !== "" ? cuisineInput : null}
+                  />
+                </div>
 
-              {/* Quantity Input */}
-              <div className="flex flex-col gap-1">
-                <label htmlFor="quantityInput" className="font-semibold text-gray-700">
-                  Quantity
-                </label>
-                <input
-                  min="0"
-                  id="quantityInput"
-                  type="number"
-                  placeholder="Enter a quantity"
-                  value={quantityInput}
-                  onChange={(e) => setQuantityInput(e.target.value)}
-                  className="p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-              </div>
+                <h5 className="text-base mb-2 mt-4 text-wrap">What is your cooking skill level?</h5>
+                <div className="w-full">
+                  <CircleSelect
+                    options={[
+                      { value: "beginner", icon: RiNumber1, label: "Beginner" },
+                      { value: "intermediate", icon: RiNumber2, label: "Intermediate" },
+                      { value: "expert", icon: RiNumber3, label: "Expert" }
+                    ]}
+                    onChange={(value) => setLevelInput(value)}
+                    prevSelected={levelInput !== "" ? levelInput : null}
+                  />
+                </div>
 
-              {/* Unit Selection */}
-              <div className="flex flex-col gap-1">
-                <label htmlFor="unitsInput" className="font-semibold text-gray-700">
-                  Unit
-                </label>
-                <select
-                  id="unitsInput"
-                  value={unitsInput}
-                  onChange={(e) => setUnitsInput(e.target.value)}
-                  className="p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                >
-                  <option value="default">Select Units</option>
-                  <option value="teaspoons">Teaspoons</option>
-                  <option value="tablespoons">Tablespoons</option>
-                  <option value="cups">Cups</option>
-                  <option value="pints">Pints</option>
-                  <option value="quarts">Quarts</option>
-                  <option value="gallons">Gallons</option>
-                  <option value="ounces">Ounces</option>
-                </select>
-              </div>
+                <h5 className="text-base mb-2 mt-4 text-wrap">Do you have any dietary preferences or restrictions?</h5>
+                <div className="w-full">
+                  <OblongSelect
+                    options={["None", "Vegan", "Vegetarian", "Low Carb", "High Protein"]}
+                    onChange={(value) => setDietaryInput(value)}
+                    prevSelected={dietaryInput !== "" ? dietaryInput : null}
+                  />
+                </div>
 
-              {/* Add Ingredient Button */}
-              <button
-                type="submit"
-                className="w-full p-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              >
-                Add Ingredient
+                <h5 className="text-base mb-2 mt-4 text-wrap">Do you need the recipe to be ready in under 30 minutes?</h5>
+                <div className="w-full">
+                  <CircleSelect
+                    options={[
+                      { value: "yes", icon: FaCheck, label: "Yes" },
+                      { value: "no", icon: FaX, label: "No" },
+                    ]}
+                    onChange={(value) => setQuickInput(value)}
+                    prevSelected={quickInput !== "" ? quickInput : null}
+                  />
+                </div>
+              </form>
+
+              <button className="self-center p-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 mt-4" onClick={() => setActive("addingredients")}>
+                Continue
               </button>
-            </form>
-            <div className="flex flex-wrap gap-4 justify-center py-4">
-            {ingredients.length > 0 ? (
-                  ingredients.map((ingredient, index) => (
-                    <div key = {index} className="flex items-center justify-between p-4 bg-white border border-blue-300 rounded-lg shadow-sm">
-                    <div>
-                      <h3 className="text-blue-600 font-semibold text-lg">{ingredient.ingredientName}</h3>
-                      {ingredient.quantity != 0 && <p className="text-sm text-gray-600">Quantity: {ingredient.quantity}</p>}
-                      {ingredient.expDate && <p className="text-sm text-gray-600">Expires: {ingredient.expDate}</p>}
-                    </div>
-                    <button
-                      onClick={() => handleDeleteIngredient(ingredient)}
-                      className="ml-4 p-2 bg-blue-100 text-blue-600 rounded-full hover:bg-blue-200 transition text-xs"
-                    >
-                      Remove
-                    </button>
-                  </div>
-                  ))
-              ) : (
-                  isLoadingPantry ? <p>Loading Pantry...</p> : <p>No ingredients added yet.</p>
-              )}
             </div>
-            <button className ="self-start p-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500" onClick = {() => setActive("recipeinfo")}>Back</button>
-            <button className ="self-end p-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500" onClick = {handleGenerate}>Submit</button>
-            </div>}
+          }
+
+
+          {active == "addingredients" && 
+            <div className="flex flex-col items-center px-2 sm:px-4 sm:min-w-[700px]">
+              <button className="self-center p-2 w-fit bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4" onClick={fetchIngredients}>
+                Get Ingredients From Pantry
+              </button>
+              <form onSubmit={handleAdd} className="space-y-4 max-w-xs sm:max-w-lg w-full">
+                {/* Ingredient Input */}
+                <div className="flex flex-col gap-1">
+                  <label htmlFor="ingredientInput" className="font-semibold text-gray-700 text-sm sm:text-base">
+                    Ingredient
+                  </label>
+                  <input
+                    id="ingredientInput"
+                    type="text"
+                    placeholder="Enter an ingredient"
+                    value={ingredientInput}
+                    onChange={(e) => setIngredientInput(e.target.value)}
+                    className="p-2 text-sm sm:text-base rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+
+                {/* Quantity Input */}
+                <div className="flex flex-col gap-1">
+                  <label htmlFor="quantityInput" className="font-semibold text-gray-700 text-sm sm:text-base">
+                    Quantity
+                  </label>
+                  <input
+                    min="0"
+                    id="quantityInput"
+                    type="number"
+                    placeholder="Enter a quantity"
+                    value={quantityInput}
+                    onChange={(e) => setQuantityInput(e.target.value)}
+                    className="p-2 text-sm sm:text-base rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+
+                {/* Unit Selection */}
+                <div className="flex flex-col gap-1">
+                  <label htmlFor="unitsInput" className="font-semibold text-gray-700 text-sm sm:text-base">
+                    Unit
+                  </label>
+                  <select
+                    id="unitsInput"
+                    value={unitsInput}
+                    onChange={(e) => setUnitsInput(e.target.value)}
+                    className="p-2 text-sm sm:text-base rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  >
+                    <option value="default">Select Units</option>
+                    <option value="teaspoons">Teaspoons</option>
+                    <option value="tablespoons">Tablespoons</option>
+                    <option value="cups">Cups</option>
+                    <option value="pints">Pints</option>
+                    <option value="quarts">Quarts</option>
+                    <option value="gallons">Gallons</option>
+                    <option value="ounces">Ounces</option>
+                  </select>
+                </div>
+
+                {/* Add Ingredient Button */}
+                <button
+                  type="submit"
+                  className="w-full p-2 text-sm sm:text-base bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  Add Ingredient
+                </button>
+              </form>
+
+              <div className="flex flex-wrap gap-4 justify-center py-4 w-full">
+                {ingredients.length > 0 ? (
+                  ingredients.map((ingredient, index) => (
+                    <div key={index} className="flex items-center justify-between p-4 bg-white border border-blue-300 rounded-lg shadow-sm max-w-xs w-full text-sm sm:text-base">
+                      <div>
+                        <h3 className="text-blue-600 font-semibold">{ingredient.ingredientName}</h3>
+                        {ingredient.quantity != 0 && <p className="text-sm text-gray-600">Quantity: {ingredient.quantity}</p>}
+                        {ingredient.expDate && <p className="text-sm text-gray-600">Expires: {ingredient.expDate}</p>}
+                      </div>
+                      <button
+                        onClick={() => handleDeleteIngredient(ingredient)}
+                        className="ml-4 p-2 text-xs sm:text-sm bg-blue-100 text-blue-600 rounded-full hover:bg-blue-200 transition"
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  ))
+                ) : (
+                  isLoadingPantry ? <p className="text-sm sm:text-base">Loading Pantry...</p> : <p className="text-sm sm:text-base">No ingredients added yet.</p>
+                )}
+              </div>
+
+              {/* Buttons - Back, Submit */}
+              <div className="flex flex-col sm:flex-row w-full justify-between sm:justify-center gap-4 items-center">
+                <button className="p-2 w-1/2 sm:w-fit text-sm sm:text-base bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500" onClick={() => setActive("recipeinfo")}>
+                  Back
+                </button>
+                <button className="p-2 w-1/2 sm:w-fit text-sm sm:text-base bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500" onClick={handleGenerate}>
+                  Submit
+                </button>
+              </div>
+            </div>
+          }
+          
             {active === "recipegeneration" ? (
               isLoadingRecipe ? (
                 <p>Loading Recipe...</p> // Show a loading spinner or message
@@ -368,8 +402,20 @@ export default function GenerateRecipeComponent() {
                               )) : <li>No serving suggestions.</li>
                           }
                       </ul>
-                    <button className = "p-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500" onClick = {() => setActive("recipeinfo")}>Retry</button>
-                    <button className = "p-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500" onClick = {() => handleGenReset()}>Try A Different Recipe</button>
+                      <div className="flex flex-col sm:flex-row w-full justify-between sm:justify-center gap-4 items-center mt-4">
+                  <button
+                    onClick={() => setActive("recipeinfo")}
+                    className="p-2 w-1/2 sm:w-fit text-xs sm:text-sm md:text-base bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  >
+                    Back
+                  </button>
+                  <button
+                    onClick={() => handleGenReset()}
+                    className="p-2 w-1/2 sm:w-fit text-xs sm:text-sm md:text-base bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  >
+                    Try A Different Recipe
+                  </button>
+                </div>
                   </div>// Show the recipe if it's not null
               ) : (
                 <div> 

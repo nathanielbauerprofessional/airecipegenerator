@@ -85,64 +85,65 @@ export default function SettingsComponent() {
     const currentDate = new Date().toLocaleDateString();
 
     return (
-        <div className = "w-full flex flex-col items-center font-quicksand">
-            <h1 className = "text-6xl font-semibold font-poppins p-10">
-                Settings
-            </h1>
-            <form onSubmit={handleAddAllergy} className="space-y-4 max-w-[800px] min-w-[700px] font-quicksand">
-              {/* Ingredient Input */}
-              <div className="flex flex-col gap-1">
+        <div className="w-full flex flex-col items-center font-quicksand">
+            <h1 className="text-6xl font-semibold font-poppins p-10">Settings</h1>
+            <form onSubmit={handleAddAllergy} className="space-y-4 max-w-[800px] w-full font-quicksand px-4 sm:px-6">
+                {/* Ingredient Input */}
+                <div className="flex flex-col gap-1">
                 <label htmlFor="allergyInput" className="font-semibold text-gray-700 font-quicksand">
-                  Allergy
+                    Allergy
                 </label>
                 <input
-                  id="allergyInput"
-                  type="text"
-                  placeholder="Enter an allergy"
-                  value={allergyInput}
-                  onChange={(e) => setAllergyInput(e.target.value)}
-                  className="p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    id="allergyInput"
+                    type="text"
+                    placeholder="Enter an allergy"
+                    value={allergyInput}
+                    onChange={(e) => setAllergyInput(e.target.value)}
+                    className="p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
-              </div>
+                </div>
 
-              {/* Add Ingredient Button */}
-              <button
+                {/* Add Ingredient Button */}
+                <button
                 type="submit"
                 className="w-full p-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              >
+                >
                 Add Allergy
-              </button>
+                </button>
             </form>
+
             <div className="flex flex-wrap gap-4 justify-center py-4">
-              {allergies.length > 0 ? (
-                  allergies.map((allergy, index) => (
-                    <div key = {index} className="flex items-center justify-between p-4 bg-white border border-blue-300 rounded-lg shadow-sm">
+                {allergies.length > 0 ? (
+                allergies.map((allergy, index) => (
+                    <div key={index} className="flex items-center justify-between p-4 bg-white border border-blue-300 rounded-lg shadow-sm">
                     <div>
-                      <h3 className="text-blue-600 font-semibold text-lg">{allergy}</h3>
+                        <h3 className="text-blue-600 font-semibold text-lg">{allergy}</h3>
                     </div>
                     <button
-                      onClick={() => handleDeleteAllergy(allergy)}
-                      className="ml-4 p-2 bg-blue-100 text-blue-600 rounded-full hover:bg-blue-200 transition text-xs"
+                        onClick={() => handleDeleteAllergy(allergy)}
+                        className="ml-4 p-2 bg-blue-100 text-blue-600 rounded-full hover:bg-blue-200 transition text-xs"
                     >
-                      Remove
+                        Remove
                     </button>
-                  </div>
-                  ))
-              ) : (
-                  isLoadingAllergies ? <p>Loading Settings...</p> : <p>No allergies added yet.</p>
-              )}
+                    </div>
+                ))
+                ) : (
+                isLoadingAllergies ? <p>Loading Settings...</p> : <p>No allergies added yet.</p>
+                )}
             </div>
+
             <div className="w-full flex flex-col items-center mt-10">
                 <h2 className="text-lg font-semibold">User Info</h2>
                 <p>Email: {session?.user?.email || "Not logged in"}</p>
                 <p>Date: {currentDate}</p>
                 <button
-                    className="bg-blue-600 text-white rounded-md py-2 px-4 mt-4 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    onClick={() => signOut()}
+                className="bg-blue-600 text-white rounded-md py-2 px-4 mt-4 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                onClick={() => signOut()}
                 >
-                    Sign Out
+                Sign Out
                 </button>
             </div>
-        </div>
+            </div>
+
     );
 }

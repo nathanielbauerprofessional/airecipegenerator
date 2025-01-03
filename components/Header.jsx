@@ -15,7 +15,7 @@ export default function Header() {
     };
 
     return (
-    <header className="bg-white shadow-sm font-poppins">
+    <header className="bg-white shadow-sm font-poppins w-full">
       <div className="container mx-auto px-4 py-8">
         <div className="flex justify-between items-center">
           {/* Logo and Site Title */}

@@ -9,7 +9,7 @@ const OblongSelect = ({ options, onChange, prevSelected }) => {
   };
 
   return (
-    <div className="flex justify-center items-center gap-4 my-6">
+    <div className="flex flex-wrap justify-center gap-4 my-6 w-full">
       {options.map((option, index) => (
         <div
           key={index}
@@ -18,7 +18,7 @@ const OblongSelect = ({ options, onChange, prevSelected }) => {
               selected === option
                 ? "bg-blue-500 text-white border-blue-700 scale-110"
                 : "bg-gray-200 text-gray-700 hover:bg-gray-300"
-            } transition-all`}
+            } transition-all min-w-[120px] w-28 sm:w-32`} // Wrapping and responsive width
           onClick={() => handleSelect(option)}
         >
           {option}
