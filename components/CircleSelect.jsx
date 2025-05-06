@@ -17,17 +17,17 @@ const CircleSelect = ({ options, onChange, prevSelected }) => {
           onClick={() => handleSelect(option)}
         >
           <div
-            className={`w-14 h-14 flex justify-center items-center rounded-full border-2 cursor-pointer 
+            className={`w-20 h-20 flex justify-center items-center rounded-full border-2 cursor-pointer 
               ${
                 selected === option.value
                   ? "bg-blue-500 text-white border-blue-700 scale-110"
                   : "bg-gray-200 text-gray-700 hover:bg-gray-300"
               } transition-all`}
           >
-            {option.icon && React.createElement(option.icon, { size: 24 })} {/* Render the React Icon */}
+            {option.icon && React.createElement(option.icon, { size: 32 })} {/* Render the React Icon */}
           </div>
           <span
-            className={`text-sm font-medium ${
+            className={`text-base font-medium ${
               selected === option.value ? "text-blue-500" : "text-gray-700"
             }`}
           >

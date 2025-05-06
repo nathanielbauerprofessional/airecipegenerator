@@ -85,65 +85,92 @@ export default function SettingsComponent() {
     const currentDate = new Date().toLocaleDateString();
 
     return (
-        <div className="w-full flex flex-col items-center font-quicksand">
-            <h1 className="text-6xl font-semibold font-poppins p-10">Settings</h1>
-            <form onSubmit={handleAddAllergy} className="space-y-4 max-w-[800px] w-full font-quicksand px-4 sm:px-6">
-                {/* Ingredient Input */}
-                <div className="flex flex-col gap-1">
-                <label htmlFor="allergyInput" className="font-semibold text-gray-700 font-quicksand">
-                    Allergy
+        <div className="w-full max-w-4xl mx-auto px-4 py-8 font-quicksand">
+          {/* Page Title */}
+          <h1
+            className="text-6xl leading-tight font-poppins font-semibold
+                       bg-gradient-to-r from-blue-200 via-blue-500 to-blue-800
+                       bg-clip-text text-transparent text-center mb-8"
+          >
+            Settings
+          </h1>
+    
+          {/* Allergy Form Card */}
+          <div className="bg-white shadow-md rounded-lg p-6 mb-10">
+            <form onSubmit={handleAddAllergy} className="space-y-4">
+              <div className="flex flex-col">
+                <label htmlFor="allergyInput" className="font-semibold text-gray-700 mb-1">
+                  Allergy
                 </label>
                 <input
-                    id="allergyInput"
-                    type="text"
-                    placeholder="Enter an allergy"
-                    value={allergyInput}
-                    onChange={(e) => setAllergyInput(e.target.value)}
-                    className="p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  id="allergyInput"
+                  type="text"
+                  placeholder="Enter an allergy"
+                  value={allergyInput}
+                  onChange={e => setAllergyInput(e.target.value)}
+                  className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
                 />
-                </div>
-
-                {/* Add Ingredient Button */}
-                <button
+              </div>
+              <button
                 type="submit"
-                className="w-full p-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                >
+                className="w-full py-3 bg-blue-600 text-white font-medium rounded-md
+                           hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500
+                           transition"
+              >
                 Add Allergy
-                </button>
+              </button>
             </form>
-
-            <div className="flex flex-wrap gap-4 justify-center py-4">
+          </div>
+    
+          {/* Allergies Grid */}
+          <div className="mb-10">
+            <h2 className="text-2xl font-semibold text-gray-800 mb-4">Your Allergies</h2>
+            {isLoadingAllergies ? (
+              <p className="text-center text-gray-600">Loading Settings…</p>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                 {allergies.length > 0 ? (
-                allergies.map((allergy, index) => (
-                    <div key={index} className="flex items-center justify-between p-4 bg-white border border-blue-300 rounded-lg shadow-sm">
-                    <div>
-                        <h3 className="text-blue-600 font-semibold text-lg">{allergy}</h3>
-                    </div>
-                    <button
-                        onClick={() => handleDeleteAllergy(allergy)}
-                        className="ml-4 p-2 bg-blue-100 text-blue-600 rounded-full hover:bg-blue-200 transition text-xs"
+                  allergies.map((allergy, idx) => (
+                    <div
+                      key={idx}
+                      className="bg-white border border-blue-300 rounded-lg shadow-sm p-4
+                                 flex justify-between items-center"
                     >
+                      <span className="text-lg text-blue-600 font-semibold">
+                        {allergy}
+                      </span>
+                      <button
+                        onClick={() => handleDeleteAllergy(allergy)}
+                        className="py-1 px-3 bg-blue-100 text-blue-600 rounded-full
+                                   hover:bg-blue-200 transition text-sm"
+                      >
                         Remove
-                    </button>
+                      </button>
                     </div>
-                ))
+                  ))
                 ) : (
-                isLoadingAllergies ? <p>Loading Settings...</p> : <p>No allergies added yet.</p>
+                  <p className="text-center text-gray-600 col-span-full">
+                    No allergies added yet.
+                  </p>
                 )}
-            </div>
-
-            <div className="w-full flex flex-col items-center mt-10">
-                <h2 className="text-lg font-semibold">User Info</h2>
-                <p>Email: {session?.user?.email || "Not logged in"}</p>
-                <p>Date: {currentDate}</p>
-                <button
-                className="bg-blue-600 text-white rounded-md py-2 px-4 mt-4 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                onClick={() => signOut()}
-                >
-                Sign Out
-                </button>
-            </div>
-            </div>
-
-    );
-}
+              </div>
+            )}
+          </div>
+    
+          {/* User Info Card */}
+          <div className="bg-white shadow-md rounded-lg p-6">
+            <h2 className="text-2xl font-semibold text-gray-800 mb-4">User Info</h2>
+            <p className="text-gray-700">Email: {session?.user?.email || "Not logged in"}</p>
+            <p className="text-gray-700">Date: {currentDate}</p>
+            <button
+              onClick={() => signOut()}
+              className="mt-6 w-full py-3 bg-red-700 text-white font-medium rounded-md
+                         hover:bg-red-400 focus:ring-blue-500
+                         transition"
+            >
+              Sign Out
+            </button>
+          </div>
+        </div>
+      );
+    }

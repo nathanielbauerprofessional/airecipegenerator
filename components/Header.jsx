@@ -19,12 +19,12 @@ export default function Header() {
       <div className="container mx-auto px-4 py-8">
         <div className="flex justify-between items-center">
           {/* Logo and Site Title */}
-          <div className="flex items-center space-x-2">
+          <a href = "/"><div className="flex items-center space-x-2">
             <PiChefHat className="w-8 h-8 text-blue-600" />
             <span className="text-2xl font-medium text-gray-800 font-poppins">
               AI Recipe Generator
             </span>
-          </div>
+          </div></a>
 
           {/* Mobile Menu Button */}
           <button

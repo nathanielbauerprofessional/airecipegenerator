@@ -36,7 +36,7 @@ export async function handler(req, res) {
     etc.
   ]
 }
-Ensure all fields are present in the response, and use this exact structure.
+Ensure all fields are present in the response, and that **instructions** is an array of **plain text strings** with **no numbering, bullets, or list markers**and that you use this exact structure.
             `;
         console.log("FINAL PROMPT", prompt);
         try {

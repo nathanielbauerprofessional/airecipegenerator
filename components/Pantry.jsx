@@ -4,194 +4,219 @@ import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 
 export default function PantryComponent() {
-    const [ingredients, setIngredients] = useState([]);
-    const [ingredientInput, setIngredientInput] = useState("");
-    const [expirationDateInput, setExpirationDateInput] = useState('');
-    const [quantityInput, setQuantityInput] = useState('');
-    const [unitsInput, setUnitsInput] = useState('');
-    const [ingredientsLoaded, setIngredientsLoaded] = useState(false);
-    const [isLoadingPantry, setIsLoadingPantry] = useState(false);
-    const [isAddingPantry, setIsAddingPantry] = useState(false);
-    const { data: session} = useSession();
+  const [ingredients, setIngredients] = useState([]);
+  const [ingredientInput, setIngredientInput] = useState("");
+  const [expirationDateInput, setExpirationDateInput] = useState("");
+  const [quantityInput, setQuantityInput] = useState("");
+  const [unitsInput, setUnitsInput] = useState("");
+  const [ingredientsLoaded, setIngredientsLoaded] = useState(false);
+  const [isLoadingPantry, setIsLoadingPantry] = useState(false);
+  const [isAddingPantry, setIsAddingPantry] = useState(false);
+  const { data: session } = useSession();
 
-    useEffect(() => {
-        const fetchData = async () => {
-            if (!ingredientsLoaded && session?.user?.email) {
-                await fetchIngredients();
-                setIngredientsLoaded(true);
-            }
-        };
-    
-        if (session !== undefined) fetchData(); 
-    }, [ingredientsLoaded, session]);
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!ingredientsLoaded && session?.user?.email) {
+        await fetchIngredients();
+        setIngredientsLoaded(true);
+      }
+    };
+    if (session !== undefined) fetchData();
+  }, [ingredientsLoaded, session]);
 
-    const fetchIngredients = async () => {
-        setIsLoadingPantry(true);
-        console.log(!session);
-        try {
-            const response = await fetch(`/api/getIngredients`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email: session?.user?.email }),
-            });
-            const responseJson = await response.json();
-            console.log(responseJson, "RESPONSE JSON");
-            setIngredients(responseJson.ingredients);
-        } catch (error) {
-            console.log("Error Fetching Ingredients: ", error);
-        } finally {
-            setIsLoadingPantry(false);
-        }
+  const fetchIngredients = async () => {
+    setIsLoadingPantry(true);
+    try {
+      const response = await fetch(`/api/getIngredients`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: session?.user?.email }),
+      });
+      const responseJson = await response.json();
+      setIngredients(responseJson.ingredients);
+    } catch (error) {
+      console.error("Error Fetching Ingredients:", error);
+    } finally {
+      setIsLoadingPantry(false);
     }
+  };
 
-    const handleAddToPantry = async (event) => {
-        setIsAddingPantry(true);
-        document.forms[0].reset();
-        event.preventDefault();
-        if (ingredientInput.trim() === "") {
-            return;
-        } else {
-            const ingredient = {ingredientName: ingredientInput, expDate: expirationDateInput ? expirationDateInput : "", quantity: quantityInput ? quantityInput : 0, units: unitsInput ? unitsInput : "" }
-            const response = await fetch(`/api/addIngredient`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email: session?.user?.email, ingredient: ingredient }),
-            });
-            console.log(response);
-            setIngredients([...ingredients, ingredient])
-        }
-        setIsAddingPantry(false);
+  const handleAddToPantry = async (event) => {
+    setIsAddingPantry(true);
+    event.preventDefault();
+    document.forms[0].reset();
+    if (ingredientInput.trim() === "") {
+      setIsAddingPantry(false);
+      return;
     }
-
-    const handleDeleteIngredient = async (ingredientToBeDeleted) => {
-        try {
-            setIngredients(ingredients.filter(ingredient => ingredient.ingredientName !== ingredientToBeDeleted.ingredientName));
-            const response = await fetch(`/api/deleteIngredient`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email: session?.user?.email, ingredient: ingredientToBeDeleted }),
-            });
-
-            if (!response.ok) {
-                console.log("Failed to delete allergen");
-            }
-        } catch (error) {
-            console.log("Error Deleting Allergen: ", error);
-        }
+    const ingredient = {
+      ingredientName: ingredientInput,
+      expDate: expirationDateInput,
+      quantity: quantityInput || 0,
+      units: unitsInput,
+    };
+    try {
+      await fetch(`/api/addIngredient`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: session?.user?.email, ingredient }),
+      });
+      setIngredients([...ingredients, ingredient]);
+    } catch (error) {
+      console.error("Error Adding Ingredient:", error);
+    } finally {
+      setIsAddingPantry(false);
     }
+  };
 
+  const handleDeleteIngredient = async (ingredientToBeDeleted) => {
+    setIngredients(ingredients.filter(i => i.ingredientName !== ingredientToBeDeleted.ingredientName));
+    try {
+      await fetch(`/api/deleteIngredient`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: session?.user?.email, ingredient: ingredientToBeDeleted }),
+      });
+    } catch (error) {
+      console.error("Error Deleting Ingredient:", error);
+    }
+  };
 
-    return (
-      <div className="w-full flex flex-col items-center font-quicksand">
-      <h1 className="text-6xl font-semibold font-poppins p-10">Pantry</h1>
-      <form onSubmit={handleAddToPantry} className="space-y-4 max-w-[800px] w-full font-quicksand px-4 sm:px-6">
-        {/* Ingredient Input */}
-        <div className="flex flex-col gap-1">
-          <label htmlFor="ingredientInput" className="font-semibold text-gray-700">
-            Ingredient
-          </label>
-          <input
-            id="ingredientInput"
-            type="text"
-            placeholder="Enter an ingredient"
-            value={ingredientInput}
-            onChange={(e) => setIngredientInput(e.target.value)}
-            className="p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
-    
-        {/* Quantity Input */}
-        <div className="flex flex-col gap-1">
-          <label htmlFor="quantityInput" className="font-semibold text-gray-700">
-            Quantity
-          </label>
-          <input
-            min="0"
-            id="quantityInput"
-            type="number"
-            placeholder="Enter a quantity"
-            value={quantityInput}
-            onChange={(e) => setQuantityInput(e.target.value)}
-            className="p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
-    
-        {/* Unit Selection */}
-        <div className="flex flex-col gap-1">
-          <label htmlFor="unitsInput" className="font-semibold text-gray-700">
-            Unit
-          </label>
-          <select
-            id="unitsInput"
-            value={unitsInput}
-            onChange={(e) => setUnitsInput(e.target.value)}
-            className="p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+  return (
+    <div className="w-full max-w-4xl mx-auto px-4 py-12 font-quicksand">
+      {/* Title */}
+      <h1
+            className="text-6xl leading-tight font-poppins font-semibold
+                       bg-gradient-to-r from-blue-200 via-blue-500 to-blue-800
+                       bg-clip-text text-transparent text-center mb-8"
           >
-            <option value="default">Select Units</option>
-            <option value="teaspoons">Teaspoons</option>
-            <option value="tablespoons">Tablespoons</option>
-            <option value="cups">Cups</option>
-            <option value="pints">Pints</option>
-            <option value="quarts">Quarts</option>
-            <option value="gallons">Gallons</option>
-            <option value="ounces">Ounces</option>
-          </select>
-        </div>
-    
-        {/* Expiration Date Input */}
-        <div className="flex flex-col gap-1">
-          <label htmlFor="expirationInput" className="font-semibold text-gray-700">
-            Expiration Date
-          </label>
-          <input
-            type="date"
-            id="expirationInput"
-            value={expirationDateInput}
-            onChange={(e) => setExpirationDateInput(e.target.value)}
-            className="p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
-    
-        {/* Add Ingredient Button */}
-        <button
-          type="submit"
-          className="w-full p-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            Pantry
+          </h1>
+
+      {/* Add‑Ingredient Form */}
+      <div className="bg-white shadow-md rounded-lg p-6 mb-10">
+        <form
+          onSubmit={handleAddToPantry}
+          className="grid grid-cols-1 md:grid-cols-2 gap-6"
         >
-          Add Ingredient
-        </button>
-      </form>
-    
-      <div className="flex flex-wrap gap-4 justify-center py-4">
-        {ingredients.length > 0 ? (
-          ingredients.map((ingredient, index) => (
-            <div key={index} className="flex items-center justify-between p-4 bg-white border border-blue-300 rounded-lg shadow-sm">
-              <div>
-                <h3 className="text-blue-600 font-semibold text-lg">{ingredient.ingredientName}</h3>
-                {ingredient.quantity != 0 && (
-                  <p className="text-sm text-gray-600">Quantity: {ingredient.quantity} {ingredient.units === "default" ? "" : ingredient.units}</p>
-                )}
-                {ingredient.expDate && <p className="text-sm text-gray-600">Expires: {ingredient.expDate}</p>}
-              </div>
-              <button
-                onClick={() => handleDeleteIngredient(ingredient)}
-                className="ml-4 p-2 bg-blue-100 text-blue-600 rounded-full hover:bg-blue-200 transition text-xs"
-              >
-                Remove
-              </button>
-            </div>
-          ))
-        ) : (
-          isLoadingPantry ? <p>Loading Pantry...</p> : <p>No ingredients added yet.</p>
-        )}
+          {/* Ingredient */}
+          <div className="flex flex-col">
+            <label htmlFor="ingredientInput" className="font-semibold text-gray-700 mb-1">
+              Ingredient
+            </label>
+            <input
+              id="ingredientInput"
+              type="text"
+              placeholder="Enter an ingredient"
+              value={ingredientInput}
+              onChange={e => setIngredientInput(e.target.value)}
+              className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+
+          {/* Quantity */}
+          <div className="flex flex-col">
+            <label htmlFor="quantityInput" className="font-semibold text-gray-700 mb-1">
+              Quantity
+            </label>
+            <input
+              id="quantityInput"
+              type="number"
+              min="0"
+              placeholder="0"
+              value={quantityInput}
+              onChange={e => setQuantityInput(e.target.value)}
+              className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+
+          {/* Unit */}
+          <div className="flex flex-col">
+            <label htmlFor="unitsInput" className="font-semibold text-gray-700 mb-1">
+              Unit
+            </label>
+            <select
+              id="unitsInput"
+              value={unitsInput}
+              onChange={e => setUnitsInput(e.target.value)}
+              className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="">Select Unit</option>
+              <option value="teaspoons">Teaspoons</option>
+              <option value="tablespoons">Tablespoons</option>
+              <option value="cups">Cups</option>
+              <option value="pints">Pints</option>
+              <option value="quarts">Quarts</option>
+              <option value="gallons">Gallons</option>
+              <option value="ounces">Ounces</option>
+            </select>
+          </div>
+
+          {/* Expiration Date */}
+          <div className="flex flex-col">
+            <label htmlFor="expirationInput" className="font-semibold text-gray-700 mb-1">
+              Expiration Date
+            </label>
+            <input
+              id="expirationInput"
+              type="date"
+              value={expirationDateInput}
+              onChange={e => setExpirationDateInput(e.target.value)}
+              className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+
+          {/* Submit Button spans both columns */}
+          <div className="md:col-span-2">
+            <button
+              type="submit"
+              disabled={isAddingPantry}
+              className="w-full py-3 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 transition"
+            >
+              {isAddingPantry ? "Adding…" : "Add Ingredient"}
+            </button>
+          </div>
+        </form>
       </div>
+
+      {/* Ingredient Cards */}
+      {isLoadingPantry ? (
+        <p className="text-center text-gray-600">Loading Pantry…</p>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          {ingredients.length > 0 ? (
+            ingredients.map((ingredient, idx) => (
+              <div
+                key={idx}
+                className="bg-white border border-blue-300 rounded-lg shadow-sm p-4 flex flex-col justify-between"
+              >
+                <div>
+                  <h3 className="text-xl text-blue-600 font-semibold mb-2">
+                    {ingredient.ingredientName}
+                  </h3>
+                  <p className="text-gray-700">
+                    Quantity: {ingredient.quantity}{" "}
+                    {ingredient.units && ingredient.units !== "default" ? ingredient.units : ""}
+                  </p>
+                  {ingredient.expDate && (
+                    <p className="text-gray-700">Expires: {ingredient.expDate}</p>
+                  )}
+                </div>
+                <button
+                  onClick={() => handleDeleteIngredient(ingredient)}
+                  className="self-end mt-4 py-1 px-3 bg-blue-100 text-blue-600 rounded-full hover:bg-blue-200 transition text-sm"
+                >
+                  Remove
+                </button>
+              </div>
+            ))
+          ) : (
+            <p className="text-center text-gray-600 col-span-full">
+              No ingredients added yet.
+            </p>
+          )}
+        </div>
+      )}
     </div>
-    
-    
-    );
-};
+  );
+}
