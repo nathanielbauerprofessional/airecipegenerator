@@ -86,7 +86,6 @@ export default function SettingsComponent() {
 
     return (
         <div className="w-full max-w-4xl mx-auto px-4 py-8 font-quicksand">
-          {/* Page Title */}
           <h1
             className="text-6xl leading-tight font-poppins font-semibold
                        bg-gradient-to-r from-blue-200 via-blue-500 to-blue-800
@@ -95,7 +94,6 @@ export default function SettingsComponent() {
             Settings
           </h1>
     
-          {/* Allergy Form Card */}
           <div className="bg-white shadow-md rounded-lg p-6 mb-10">
             <form onSubmit={handleAddAllergy} className="space-y-4">
               <div className="flex flex-col">
@@ -122,7 +120,6 @@ export default function SettingsComponent() {
             </form>
           </div>
     
-          {/* Allergies Grid */}
           <div className="mb-10">
             <h2 className="text-2xl font-semibold text-gray-800 mb-4">Your Allergies</h2>
             {isLoadingAllergies ? (
@@ -157,7 +154,6 @@ export default function SettingsComponent() {
             )}
           </div>
     
-          {/* User Info Card */}
           <div className="bg-white shadow-md rounded-lg p-6">
             <h2 className="text-2xl font-semibold text-gray-800 mb-4">User Info</h2>
             <p className="text-gray-700">Email: {session?.user?.email || "Not logged in"}</p>
@@ -165,7 +161,7 @@ export default function SettingsComponent() {
             <button
               onClick={() => signOut()}
               className="mt-6 w-full py-3 bg-red-700 text-white font-medium rounded-md
-                         hover:bg-red-400 focus:ring-blue-500
+                         hover:bg-red-400
                          transition"
             >
               Sign Out

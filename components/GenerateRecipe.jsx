@@ -124,7 +124,7 @@ export default function GenerateRecipeComponent() {
                 const responseBody = await response.text();
                 const data = JSON.parse(responseBody);
                 const parsedRecipe = JSON.parse(data.recipe);
-                if(response.ok && isValidRecipe(parsedRecipe)) { // Parse JSON only if response is ok
+                if(response.ok && isValidRecipe(parsedRecipe)) { 
                     setRecipe(parsedRecipe);
                 } else {
                     setError("There was an error parsing the AI's response. Please check to ensure your ingredients are all real food ingredients, and then try again.");
@@ -167,13 +167,12 @@ export default function GenerateRecipeComponent() {
 
     return (
       <>
-    {/* HERO */}
     <section
         id="hero"
         className="relative w-full bg-gray-100 flex items-center py-20 md:py-32"
       >
         <div className="max-w-5xl mx-auto px-12 flex flex-col md:flex-row items-center justify-between">
-          {/* Left side */}
+
           <div className="md:w-1/2 space-y-6 text-center md:text-left">
             <span className="uppercase text-sm tracking-wide text-blue-600">
               DISCOVER
@@ -187,7 +186,6 @@ export default function GenerateRecipeComponent() {
               no more “what’s for dinner?” stress.
             </p>
 
-            {/* Feature Blocks */}
             <div className="mt-8 flex flex-col sm:flex-row gap-8 justify-center lg:justify-start items-center">
               <div className="flex items-start space-x-4">
                 <FaBoxOpen className="h-6 w-6 text-blue-500 mt-1" />
@@ -209,7 +207,6 @@ export default function GenerateRecipeComponent() {
               </div>
             </div>
 
-            {/* CTA Button */}
             <button
               onClick={e => {
                 e.preventDefault();
@@ -223,7 +220,6 @@ export default function GenerateRecipeComponent() {
             </button>
           </div>
 
-          {/* Right side - bigger, further right */}
           <div className="hidden md:visible md:w-1/2 md:flex justify-center md:justify-end mt-12 md:mt-0">
             <img
               src="heroimage.png"
@@ -390,7 +386,6 @@ export default function GenerateRecipeComponent() {
               </button>
 
               <form onSubmit={handleAdd} className="space-y-4 w-full">
-                {/* Ingredient Input */}
                 <div className="flex flex-col gap-1">
                   <label htmlFor="ingredientInput" className="font-semibold text-gray-700 text-lg">
                     Ingredient
@@ -404,8 +399,6 @@ export default function GenerateRecipeComponent() {
                     className="w-full py-3 px-4 text-lg rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
-
-                {/* Quantity Input */}
                 <div className="flex flex-col gap-1">
                   <label htmlFor="quantityInput" className="font-semibold text-gray-700 text-lg">
                     Quantity
@@ -421,7 +414,6 @@ export default function GenerateRecipeComponent() {
                   />
                 </div>
 
-                {/* Unit Selection */}
                 <div className="flex flex-col gap-1">
                   <label htmlFor="unitsInput" className="font-semibold text-gray-700 text-lg">
                     Unit
@@ -443,7 +435,6 @@ export default function GenerateRecipeComponent() {
                   </select>
                 </div>
 
-                {/* Add Ingredient Button */}
                 <button
                   type="submit"
                   className="w-full py-3 px-4 text-lg bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -483,7 +474,6 @@ export default function GenerateRecipeComponent() {
                 )}
               </div>
 
-              {/* Buttons - Back, Submit */}
               <div className="px-6 pb-6 flex flex-col sm:flex-row gap-4 justify-center">
                 <button
                   className="flex-1 py-3 bg-blue-200 text-blue-700 rounded-md hover:bg-blue-300 transition font-medium"
@@ -506,7 +496,6 @@ export default function GenerateRecipeComponent() {
               <p className="text-center text-lg py-10">Loading Recipe…</p>
             ) : recipe ? (
               <div className="w-full max-w-4xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden mt-6">
-                {/* Header */}
                 <div className="bg-gradient-to-r from-blue-500 to-blue-700 p-6 text-white">
                   <h1 className="text-3xl font-bold">{recipe.title}</h1>
                   <p className="mt-2 text-sm">
@@ -516,9 +505,7 @@ export default function GenerateRecipeComponent() {
                   </p>
                 </div>
 
-                {/* Body Grid */}
                 <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-8">
-                  {/* Ingredients */}
                   <div>
                     <h2 className="text-2xl font-semibold mb-3">Ingredients</h2>
                     <ul className="list-disc list-inside space-y-1 text-gray-700">
@@ -528,7 +515,6 @@ export default function GenerateRecipeComponent() {
                     </ul>
                   </div>
 
-                  {/* Instructions */}
                   <div>
                     <h2 className="text-2xl font-semibold mb-3">Instructions</h2>
                     <ol className="list-decimal list-inside space-y-2 text-gray-700">
@@ -539,7 +525,6 @@ export default function GenerateRecipeComponent() {
                   </div>
                 </div>
 
-                {/* Serving Suggestions */}
                 {recipe.suggestions?.length > 0 && (
                   <div className="px-6 pb-6">
                     <h2 className="text-2xl font-semibold mb-3">Serving Suggestions</h2>
@@ -549,7 +534,6 @@ export default function GenerateRecipeComponent() {
                   </div>
                 )}
 
-                {/* Footer Buttons */}
                 <div className="px-6 pb-6 flex flex-col sm:flex-row gap-4 justify-center">
                   <button
                     onClick={() => setActive("recipeinfo")}

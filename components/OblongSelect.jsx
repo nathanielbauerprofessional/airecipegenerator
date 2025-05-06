@@ -18,7 +18,7 @@ const OblongSelect = ({ options, onChange, prevSelected }) => {
               selected === option
                 ? "bg-blue-500 text-white border-blue-700 scale-110"
                 : "bg-gray-200 text-gray-700 hover:bg-gray-300"
-            } transition-all min-w-[120px] h-10 sm:w-36`} // Wrapping and responsive width
+            } transition-all min-w-[120px] h-10 sm:w-36`}
           onClick={() => handleSelect(option)}
         >
           {option}

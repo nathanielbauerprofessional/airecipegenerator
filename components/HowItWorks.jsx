@@ -85,7 +85,6 @@ export default function HowItWorksComponent() {
         </div>
       </section>
 
-      {/* TESTIMONIALS */}
       <section className="bg-gray-50 py-16">
         <div className="max-w-5xl mx-auto px-6 text-center">
           <h2 className="text-3xl font-poppins font-semibold mb-8">What Our Users Are Saying</h2>
@@ -105,7 +104,6 @@ export default function HowItWorksComponent() {
         </div>
       </section>
 
-      {/* FAQ */}
       <section className="py-16">
         <div className="max-w-3xl mx-auto px-6">
           <h2 className="text-3xl font-poppins font-semibold text-center mb-8">Frequently Asked Questions</h2>
@@ -125,7 +123,6 @@ export default function HowItWorksComponent() {
         </div>
       </section>
 
-      {/* FINAL CALL TO ACTION */}
       <section className="bg-blue-600 py-16">
         <div className="max-w-4xl mx-auto px-6 text-center text-white">
           <h2 className="text-3xl font-poppins font-semibold mb-4">

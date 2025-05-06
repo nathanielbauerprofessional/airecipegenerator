@@ -24,7 +24,7 @@ const CircleSelect = ({ options, onChange, prevSelected }) => {
                   : "bg-gray-200 text-gray-700 hover:bg-gray-300"
               } transition-all`}
           >
-            {option.icon && React.createElement(option.icon, { size: 32 })} {/* Render the React Icon */}
+            {option.icon && React.createElement(option.icon, { size: 32 })}
           </div>
           <span
             className={`text-base font-medium ${

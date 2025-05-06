@@ -84,7 +84,7 @@ export default function PantryComponent() {
 
   return (
     <div className="w-full max-w-4xl mx-auto px-4 py-12 font-quicksand">
-      {/* Title */}
+
       <h1
             className="text-6xl leading-tight font-poppins font-semibold
                        bg-gradient-to-r from-blue-200 via-blue-500 to-blue-800
@@ -93,13 +93,11 @@ export default function PantryComponent() {
             Pantry
           </h1>
 
-      {/* Add‑Ingredient Form */}
       <div className="bg-white shadow-md rounded-lg p-6 mb-10">
         <form
           onSubmit={handleAddToPantry}
           className="grid grid-cols-1 md:grid-cols-2 gap-6"
         >
-          {/* Ingredient */}
           <div className="flex flex-col">
             <label htmlFor="ingredientInput" className="font-semibold text-gray-700 mb-1">
               Ingredient
@@ -114,7 +112,6 @@ export default function PantryComponent() {
             />
           </div>
 
-          {/* Quantity */}
           <div className="flex flex-col">
             <label htmlFor="quantityInput" className="font-semibold text-gray-700 mb-1">
               Quantity
@@ -130,7 +127,6 @@ export default function PantryComponent() {
             />
           </div>
 
-          {/* Unit */}
           <div className="flex flex-col">
             <label htmlFor="unitsInput" className="font-semibold text-gray-700 mb-1">
               Unit
@@ -152,7 +148,6 @@ export default function PantryComponent() {
             </select>
           </div>
 
-          {/* Expiration Date */}
           <div className="flex flex-col">
             <label htmlFor="expirationInput" className="font-semibold text-gray-700 mb-1">
               Expiration Date
@@ -166,7 +161,6 @@ export default function PantryComponent() {
             />
           </div>
 
-          {/* Submit Button spans both columns */}
           <div className="md:col-span-2">
             <button
               type="submit"
@@ -179,7 +173,6 @@ export default function PantryComponent() {
         </form>
       </div>
 
-      {/* Ingredient Cards */}
       {isLoadingPantry ? (
         <p className="text-center text-gray-600">Loading Pantry…</p>
       ) : (

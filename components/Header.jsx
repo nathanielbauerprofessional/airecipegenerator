@@ -18,7 +18,6 @@ export default function Header() {
     <header className="bg-white shadow-sm font-poppins w-full">
       <div className="container mx-auto px-4 py-8">
         <div className="flex justify-between items-center">
-          {/* Logo and Site Title */}
           <a href = "/"><div className="flex items-center space-x-2">
             <PiChefHat className="w-8 h-8 text-blue-600" />
             <span className="text-2xl font-medium text-gray-800 font-poppins">
@@ -26,7 +25,6 @@ export default function Header() {
             </span>
           </div></a>
 
-          {/* Mobile Menu Button */}
           <button
             onClick={toggleMenu}
             className="block md:hidden text-gray-700 focus:outline-none"
@@ -57,7 +55,6 @@ export default function Header() {
             </svg>
           </button>
 
-          {/* Desktop Navigation */}
           <nav className="hidden md:block font-poppins font-medium text-xl">
             <ul className="flex space-x-6">
               <li>
@@ -96,7 +93,6 @@ export default function Header() {
           </nav>
         </div>
 
-        {/* Collapsible Mobile Navigation */}
         {isMenuOpen && (
           <nav className="mt-4 md:hidden">
             <ul className="flex flex-col space-y-2">
